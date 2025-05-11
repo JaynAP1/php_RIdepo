@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  php:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html               # Código fuente
+      - ./autoreload.sh:/usr/local/bin/autoreload.sh  # Script de autorecarga
+    container_name: php-web
+    working_dir: /var/www/html
+    command: /bin/bash -c "/usr/local/bin/autoreload.sh & apache2-foreground"
